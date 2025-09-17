@@ -66,4 +66,3 @@ Sistema de gerenciamento de banco de dados (SGBD): MySQL, PostgreSQL ou outro SG
 Ferramentas de modelagem: Diagramas Entidade-Relacionamento (DER)
 
 SQL para criação e manipulação de tabelas
---------------------------------------------------
