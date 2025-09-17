@@ -1,6 +1,8 @@
 # DBproject
 Equipe: Caio Porto, Eduarda Carolline, João Augusto, João Pedro Prosini e Rhauan Rafael
+
 Tema: Sistema de Linhas Ferroviárias
+
 Explicação do Projeto: Este projeto tem como objetivo modelar um banco de dados para gerenciar informações relacionadas a linhas ferroviárias, estações, trens, operadores e seus respectivos relacionamentos. A estrutura do banco de dados busca atender às necessidades de controle e operação de uma rede ferroviária, garantindo uma organização eficiente das informações.
 
 Funcionalidades
