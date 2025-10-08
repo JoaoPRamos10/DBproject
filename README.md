@@ -32,6 +32,12 @@
     <li>Operador</li>
   </ul>
 
+  <h3>Entidades Secundarias</h3>
+  <ul>
+    <li>Trem de Carga</li>
+    <li>Trem de Passageiro</li>
+  </ul>
+
   <h3>Relacionamentos</h3>
   <ul>
     <li>Uma linha ferroviária pode passar por várias estações.</li>
