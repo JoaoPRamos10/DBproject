@@ -14,7 +14,7 @@ Este projeto tem como objetivo modelar um banco de dados para gerenciar informa�
 *   **Cadastro de Linhas Ferroviárias:** Armazenamento de informações como nome, tipo de transporte (carga, passageiros, misto) e distância.
 *   **Cadastro de Estações:** Informações como nome, localização, capacidade de atendimento e serviços oferecidos.
 *   **Cadastro de Trens:** Dados como modelo, capacidade, ano de fabricação e tipo de serviço.
-*   **Cadastro de Operadores:** Controle dos operadores responsáveis por diferentes linhas ferroviárias.
+*   **Cadastro de Maquinistas:** Controle dos operadores responsáveis por diferentes linhas ferroviárias.
 *   **Relacionamento entre Entidades:** Conexões entre linhas, estações, trens e operadores.
 *   **Atributos Multivalorados:** Tipos de serviços nas estações e nos trens.
 *   **Generalização e Especialização:** Subtipos de trens como Trem de Passageiro e Trem de Carga.
@@ -24,7 +24,9 @@ Este projeto tem como objetivo modelar um banco de dados para gerenciar informa�
 *   Linha Ferroviária
 *   Estação
 *   Trem
-*   Operador
+*   Maquinista
+*   Manutenção
+*   Tipo de Manutenção
 
 ### Entidades Secundarias
 *   Trem de Carga
@@ -43,7 +45,7 @@ A entidade Trem pode ser especializada em Trem de Passageiro e Trem de Carga.
 *   **Linha Ferroviária:** ID_Linha, Nome, Distância, Tipo de Transporte
 *   **Estação:** ID_Estação, Nome, Localização, Capacidade
 *   **Trem:** ID_Trem, Modelo, Capacidade, Ano de Fabricação
-*   **Operador:** ID_Operador, Nome, Tipo de Operação
+*   **Maquinista:** ID_Maquinista, Nome, Tipo de Operação
 
 ## Modelo Conceitual (DER)
 ![Diagrama Entidade-Relacionamento do Sistema de Linhas Ferroviárias](modelo_conceitual.png)
