@@ -42,10 +42,13 @@ Este projeto tem como objetivo modelar um banco de dados para gerenciar informa�
 A entidade Trem pode ser especializada em Trem de Passageiro e Trem de Carga.
 
 ## Modelo de Dados
-*   **Linha Ferroviária:** ID_Linha, Nome, Distância, Tipo de Transporte
-*   **Estação:** ID_Estação, Nome, Localização, Capacidade
-*   **Trem:** ID_Trem, Modelo, Capacidade, Ano de Fabricação
-*   **Maquinista:** ID_Maquinista, Nome, Tipo de Operação
+* **Linha Ferroviária:** id_linha (PK), nome_linha, qtd_tremlinha
+* **Estação:** id_estacao (PK), nome_estacao, capacidade_estacao, tipo_estacao
+* **Manutenção:** id_manutenção (PK), data
+* **Maquinista:** maquinista_id (PK), maquinista_cpf, maquinista_nome, tipo_operado
+* **Trem (Generalização):** num_chassi (PK), Modelo, km, tipo_trem, num_vagoes
+* **Trem de Carga (Especialização):** (Herda de Trem) capacidade_kg, tipo_carga
+* **Trem de Passageiro (Especialização):** (Herda de Trem) num_assentos, capacidade_total
 
 ## Modelo Conceitual (DER)
 ![Diagrama Entidade-Relacionamento do Sistema de Linhas Ferroviárias](modelo_conceitual.png)
