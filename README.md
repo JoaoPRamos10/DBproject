@@ -21,12 +21,12 @@ Este projeto tem como objetivo modelar um banco de dados para gerenciar informa�
 
 ## Estrutura do Banco de Dados
 ### Entidades Principais
-*   Linha Ferroviária
-*   Estação
-*   Trem
-*   Maquinista
-*   Manutenção
-*   Tipo de Manutenção
+* Linha Ferroviária
+* Estação
+* Trem
+* Maquinista
+* Manutenção
+* Tipo de Manutenção
 
 ### Entidades Secundarias
 *   Trem de Carga
