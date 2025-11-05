@@ -54,7 +54,7 @@ A entidade Trem pode ser especializada em Trem de Passageiro e Trem de Carga.
 * **Viagem:** id_viagem (PK), hora_partida, hora_chegada, status_viagem, fk_id_linha (FK), fk_num_chassi (FK), fk_maquinista_id (FK)
 
 ## Modelo Conceitual (DER)
-![Diagrama Entidade-Relacionamento do Sistema de Linhas Ferroviárias](modelo_conceitual.png)
+![Diagrama Entidade-Relacionamento do Sistema de Linhas Ferroviárias](Modelo_conceitual.png)
 
 ## Modelo Lógico
 
