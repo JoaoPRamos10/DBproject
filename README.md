@@ -8,13 +8,14 @@ Caio Porto, Eduarda Carolline, João Augusto, João Pedro Prosini e Rhauan Rafae
 **Sistema de Linhas Ferroviárias**
 
 ## Explicação do Projeto
-Este projeto tem como objetivo modelar um banco de dados para gerenciar informações relacionadas a linhas ferroviárias, estações, trens, maquinistas e seus respectivos relacionamentos. A estrutura do banco de dados busca atender às necessidades de controle e operação de uma rede ferroviária, garantindo uma organização eficiente das informações.
+Este projeto tem como objetivo modelar um banco de dados para gerenciar informações relacionadas a linhas ferroviárias, estações, trens, maquinistas, viagens, e seus respectivos relacionamentos. A estrutura do banco de dados busca atender às necessidades de controle e operação de uma rede ferroviária, garantindo uma organização eficiente das informações.
 
 ## Funcionalidades
 *   **Cadastro de Linhas Ferroviárias:** Armazenamento de informações como nome, tipo de transporte (carga, passageiros, misto) e distância.
 *   **Cadastro de Estações:** Informações como nome, localização, capacidade de atendimento e serviços oferecidos.
 *   **Cadastro de Trens:** Dados como modelo, capacidade, ano de fabricação e tipo de serviço.
 *   **Cadastro de Maquinistas:** Controle dos maquinistas responsáveis por diferentes linhas ferroviárias.
+*   **Registro de Viagens:** Controle de partidas, chegadas, status, e qual maquinista e trem estão alocados para cada viagem.
 *   **Relacionamento entre Entidades:** Conexões entre linhas, estações, trens e maquinistas.
 *   **Atributos Multivalorados:** Tipos de serviços nas estações e nos trens.
 *   **Generalização e Especialização:** Subtipos de trens como Trem de Passageiro e Trem de Carga.
@@ -27,6 +28,7 @@ Este projeto tem como objetivo modelar um banco de dados para gerenciar informa�
 *   Maquinista
 *   Manutenção
 *   Tipo de Manutenção
+*   Viagem
 
 ### Entidades Secundarias
 *   Trem de Carga
@@ -36,7 +38,7 @@ Este projeto tem como objetivo modelar um banco de dados para gerenciar informa�
 *   Uma linha ferroviária pode passar por várias estações.
 *   Uma linha ferroviária pode ter vários trens.
 *   Uma estação pode oferecer vários serviços.
-*   Um maquinista pode ser responsável por uma ou mais linhas ferroviárias.
+*   Uma viagem é operada por um maquinista e utiliza um trem em uma linha específica.
 
 ### Generalização/Especialização
 A entidade Trem pode ser especializada em Trem de Passageiro e Trem de Carga.
@@ -49,6 +51,7 @@ A entidade Trem pode ser especializada em Trem de Passageiro e Trem de Carga.
 * **Trem (Generalização):** num_chassi (PK), Modelo, km, tipo_trem, num_vagoes
 * **Trem de Carga (Especialização):** (Herda de Trem) capacidade_kg, tipo_carga
 * **Trem de Passageiro (Especialização):** (Herda de Trem) num_assentos, capacidade_total
+* **Viagem:** id_viagem (PK), hora_partida, hora_chegada, status_viagem, fk_id_linha (FK), fk_num_chassi (FK), fk_maquinista_id (FK)
 
 ## Modelo Conceitual (DER)
 ![Diagrama Entidade-Relacionamento do Sistema de Linhas Ferroviárias](modelo_conceitual.png)
@@ -96,7 +99,6 @@ erDiagram
         STRING tipo_trem "tipo_trem"
         INT num_vagoes "num_vagoes"
         INT fk_id_linha FK "fk_id_linha (FK)"
-        INT fk_maquinista_id FK "fk_maquinista_id (FK, NULL)"
     }
 
     TREM_DE_CARGA {
@@ -109,6 +111,16 @@ erDiagram
         STRING fk_num_chassi PK,FK "fk_num_chassi (PK, FK)"
         INT num_assentos "num_assentos"
         INT capacidade_total "capacidade_total"
+    }
+
+    VIAGEM {
+        INT id_viagem PK "id_viagem (PK)"
+        DATETIME hora_partida "hora_partida"
+        DATETIME hora_chegada "hora_chegada"
+        STRING status_viagem "status_viagem"
+        INT fk_id_linha FK "fk_id_linha (FK)"
+        STRING fk_num_chassi FK "fk_num_chassi (FK)"
+        INT fk_maquinista_id FK "fk_maquinista_id (FK)"
     }
 
     LINHA_ESTACAO {
@@ -131,7 +143,9 @@ erDiagram
     MANUTENCAO_TIPO }o--|| MANUTENCAO : "Resolve"
     MANUTENCAO_TIPO }o--|| TIPO_MANUTENCAO : "Resolve"
     
-    TREM }o--|| MAQUINISTA : "OPERA (0,1)"
-
     TREM ||--|{ TREM_DE_CARGA : "Especialização"
     TREM ||--|{ TREM_DE_PASSAGEIRO : "Especialização"
+
+    LINHA_FERROVIARIA ||--|{ VIAGEM : "Contém"
+    TREM ||--|{ VIAGEM : "Realiza"
+    MAQUINISTA ||--|{ VIAGEM : "Opera"
