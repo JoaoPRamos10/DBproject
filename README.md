@@ -53,84 +53,85 @@ A entidade Trem pode ser especializada em Trem de Passageiro e Trem de Carga.
 ## Modelo Conceitual (DER)
 ![Diagrama Entidade-Relacionamento do Sistema de Linhas Ferroviárias](modelo_conceitual.png)
 
-## Modelo Lógico (Esquema Relacional)
+## Modelo Lógico
 
-Abaixo está a definição das tabelas, com suas colunas, chaves primárias (PK) e chaves estrangeiras (FK).
+```mermaid
+erDiagram
+    LINHA_FERROVIARIA {
+        INT id_linha PK "id_linha (PK)"
+        STRING nome_linha "nome_linha"
+        INT qtd_tremlinhas "qtd_tremlinhas"
+    }
 
-### Tabela: `LINHA_FERROVIARIA`
-Esta tabela armazena as informações centrais de cada linha.
-* `id_linha` (PK, Inteiro, NOT NULL)
-* `nome_linha` (Texto)
-* `qtd_tremlinhas` (Inteiro)
+    ESTACAO {
+        INT id_estacao PK "id_estacao (PK)"
+        STRING nome_estacao "nome_estacao"
+        INT capacidade_estacao "capacidade_estacao"
+        STRING tipo_estacao "tipo_estacao"
+    }
 
-### Tabela: `ESTACAO`
-Armazena todas as estações que podem fazer parte de uma ou mais linhas.
-* `id_estacao` (PK, Inteiro, NOT NULL)
-* `nome_estacao` (Texto)
-* `capacidade_estacao` (Inteiro)
-* `tipo_estacao` (Texto)
+    MAQUINISTA {
+        INT maquinista_id PK "maquinista_id (PK)"
+        STRING maquinista_cpf "maquinista_cpf (UNIQUE)"
+        STRING maquinista_nome "maquinista_nome"
+        STRING tipo_operado "tipo_operado"
+    }
 
-### Tabela: `MAQUINISTA`
-Armazena os dados dos operadores/maquinistas.
-* `maquinista_id` (PK, Inteiro, NOT NULL)
-* `maquinista_cpf` (Texto, UNIQUE, NOT NULL)
-* `maquinista_nome` (Texto)
-* `tipo_operado` (Texto)
+    MANUTENCAO {
+        INT id_manutencao PK "id_manutencao (PK)"
+        DATE data "data"
+        INT fk_id_linha FK "fk_id_linha (FK)"
+    }
 
-### Tabela: `MANUTENCAO`
-Registra cada evento de manutenção. Cada manutenção está ligada a *exatamente uma* linha, conforme o relacionamento (1,1) `TEM`.
-* `id_manutencao` (PK, Inteiro, NOT NULL)
-* `data` (Data)
-* `fk_id_linha` (FK, Inteiro, NOT NULL) - *Referencia `LINHA_FERROVIARIA(id_linha)`*
+    TIPO_MANUTENCAO {
+        INT id_tipo_manutencao PK "id_tipo_manutencao (PK)"
+        STRING nome_tipo "nome_tipo"
+        STRING descricao "descricao"
+    }
 
-### Tabela: `TIPO_MANUTENCAO`
-Tabela de "lookup" para os tipos de manutenção (ex: "Preventiva", "Corretiva"). O DER a define como uma entidade.
-* `id_tipo_manutencao` (PK, Inteiro, NOT NULL)
-* `nome_tipo` (Texto, NOT NULL)
-* `descricao` (Texto)
+    TREM {
+        STRING num_chassi PK "num_chassi (PK)"
+        STRING modelo "modelo"
+        FLOAT km "km"
+        STRING tipo_trem "tipo_trem"
+        INT num_vagoes "num_vagoes"
+        INT fk_id_linha FK "fk_id_linha (FK)"
+        INT fk_maquinista_id FK "fk_maquinista_id (FK, NULL)"
+    }
 
-### Tabela: `TREM` (Superclasse)
-Tabela central para a generalização. Armazena os atributos comuns a *todos* os tipos de trem.
-* `num_chassi` (PK, Texto, NOT NULL)
-* `modelo` (Texto)
-* `km` (Decimal/Float)
-* `tipo_trem` (Texto) - *Pode ser usado como "discriminador" (Carga/Passageiro)*
-* `num_vagoes` (Inteiro)
-* `fk_id_linha` (FK, Inteiro, NOT NULL) - *Relacionamento (1,1) `POSSUEM`*
-* `fk_maquinista_id` (FK, Inteiro, NULL) - *Relacionamento (0,1) `OPERA` (um trem pode não ter um maquinista associado no momento)*
+    TREM_DE_CARGA {
+        STRING fk_num_chassi PK,FK "fk_num_chassi (PK, FK)"
+        FLOAT capacidade_kg "capacidade_kg"
+        STRING tipo_carga "tipo_carga"
+    }
 
-### Tabela: `TREM_DE_CARGA` (Subclasse)
-Armazena atributos *específicos* de trens de carga.
-* `fk_num_chassi` (PK, FK, Texto, NOT NULL) - *É ao mesmo tempo PK e FK, referenciando `TREM(num_chassi)`*
-* `capacidade_kg` (Decimal/Float)
-* `tipo_carga` (Texto)
+    TREM_DE_PASSAGEIRO {
+        STRING fk_num_chassi PK,FK "fk_num_chassi (PK, FK)"
+        INT num_assentos "num_assentos"
+        INT capacidade_total "capacidade_total"
+    }
 
-### Tabela: `TREM_DE_PASSAGEIRO` (Subclasse)
-Armazena atributos *específicos* de trens de passageiros.
-* `fk_num_chassi` (PK, FK, Texto, NOT NULL) - *É ao mesmo tempo PK e FK, referenciando `TREM(num_chassi)`*
-* `num_assentos` (Inteiro)
-* `capacidade_total` (Inteiro)
+    LINHA_ESTACAO {
+        INT fk_id_linha PK,FK "fk_id_linha (PK, FK)"
+        INT fk_id_estacao PK,FK "fk_id_estacao (PK, FK)"
+    }
 
----
-## Tabelas Associativas (Relacionamentos N:M)
+    MANUTENCAO_TIPO {
+        INT fk_id_manutencao PK,FK "fk_id_manutencao (PK, FK)"
+        INT fk_id_tipo_manutencao PK,FK "fk_id_tipo_manutencao (PK, FK)"
+    }
 
-Estas tabelas são criadas para resolver os relacionamentos "Muitos-para-Muitos" (N:M).
+    LINHA_FERROVIARIA ||--|{ MANUTENCAO : "TEM"
+    LINHA_FERROVIARIA ||--|{ TREM : "POSSUEM"
+    LINHA_FERROVIARIA }o--o{ ESTACAO : "PERTENCE (N:M)"
+    LINHA_ESTACAO }o--|| LINHA_FERROVIARIA : "Resolve"
+    LINHA_ESTACAO }o--|| ESTACAO : "Resolve"
 
-### Tabela: `LINHA_ESTACAO`
-Resolve o relacionamento N:M `PERTENCE` entre `LINHA_FERROVIARIA` e `ESTACAO`.
-* `fk_id_linha` (PK, FK, Inteiro, NOT NULL) - *Referencia `LINHA_FERROVIARIA(id_linha)`*
-* `fk_id_estacao` (PK, FK, Inteiro, NOT NULL) - *Referencia `ESTACAO(id_estacao)`*
-* *(Chave primária composta: `(fk_id_linha, fk_id_estacao)`)*
+    MANUTENCAO }o--o{ TIPO_MANUTENCAO : "AFIM DE (N:M)"
+    MANUTENCAO_TIPO }o--|| MANUTENCAO : "Resolve"
+    MANUTENCAO_TIPO }o--|| TIPO_MANUTENCAO : "Resolve"
+    
+    TREM }o--|| MAQUINISTA : "OPERA (0,1)"
 
-### Tabela: `MANUTENCAO_TIPO`
-Resolve o relacionamento N:M `AFIM DE` entre `MANUTENCAO` e `TIPO_MANUTENCAO`.
-* `fk_id_manutencao` (PK, FK, Inteiro, NOT NULL) - *Referencia `MANUTENCAO(id_manutencao)`*
-* `fk_id_tipo_manutencao` (PK, FK, Inteiro, NOT NULL) - *Referencia `TIPO_MANUTENCAO(id_tipo_manutencao)`*
-* *(Chave primária composta: `(fk_id_manutencao, fk_id_tipo_manutencao)`)*
-
----
-
-## Tecnologias Utilizadas
-*   **SGBD:** MySQL, PostgreSQL ou outro SGBD relacional
-*   **Ferramentas de Modelagem:** Diagramas Entidade-Relacionamento (DER)
-*   **SQL:** Para criação e manipulação de tabelas
+    TREM ||--|{ TREM_DE_CARGA : "Especialização"
+    TREM ||--|{ TREM_DE_PASSAGEIRO : "Especialização"
