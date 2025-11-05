@@ -8,7 +8,7 @@ Caio Porto, Eduarda Carolline, João Augusto, João Pedro Prosini e Rhauan Rafae
 **Sistema de Linhas Ferroviárias**
 
 ## Explicação do Projeto
-Este projeto tem como objetivo modelar um banco de dados para gerenciar informações relacionadas a linhas ferroviárias, estações, trens, operadores e seus respectivos relacionamentos. A estrutura do banco de dados busca atender às necessidades de controle e operação de uma rede ferroviária, garantindo uma organização eficiente das informações.
+Este projeto tem como objetivo modelar um banco de dados para gerenciar informações relacionadas a linhas ferroviárias, estações, trens, maquinistas e seus respectivos relacionamentos. A estrutura do banco de dados busca atender às necessidades de controle e operação de uma rede ferroviária, garantindo uma organização eficiente das informações.
 
 ## Funcionalidades
 *   **Cadastro de Linhas Ferroviárias:** Armazenamento de informações como nome, tipo de transporte (carga, passageiros, misto) e distância.
@@ -16,7 +16,7 @@ Este projeto tem como objetivo modelar um banco de dados para gerenciar informa�
 *   **Cadastro de Trens:** Dados como modelo, capacidade, ano de fabricação e tipo de serviço.
 *   **Cadastro de Maquinistas:** Controle dos maquinistas responsáveis por diferentes linhas ferroviárias.
 *   **Relacionamento entre Entidades:** Conexões entre linhas, estações, trens e operadores.
-*   **Atributos Multivalorados:** Tipos de serviços nas estações e nos trens.
+*   **AtributOS Multivalorados:** Tipos de serviços nas estações e nos trens.
 *   **Generalização e Especialização:** Subtipos de trens como Trem de Passageiro e Trem de Carga.
 
 ## Estrutura do Banco de Dados
