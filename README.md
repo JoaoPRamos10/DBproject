@@ -1,8 +1,7 @@
 # DBproject
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/JoaoPRamos10/DBproject)
 
 ## Equipe
-Caio Porto (2024033228111) Eduarda Carolline (202403322781), João Augusto (20243322919), João Pedro Prosini(202403322714) e Rhauan Rafael (202403322)
+Caio Porto (2024033228111) Eduarda Carolline (202403322781), João Augusto (20243322919), João Pedro Prosini (202403322714) e Rhauan Rafael (202403322901)
 
 ## Tema
 **Sistema de Linhas Ferroviárias**
